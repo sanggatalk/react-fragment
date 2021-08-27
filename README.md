@@ -2,6 +2,13 @@
 
 react-fragment for numerous project.
 
+## How to Run
+
+```bash
+  npm install     # install dependencies
+  npm run start   # Run (react-scripts start)
+```
+
 ## Directory Structure Intro
 
 ```bash
@@ -26,3 +33,28 @@ Page를 이루는 기본 단위들을 만든다. 각각의 Component들은 최�
 ### Page
 
 하나의 페이지씩 만든다. 해당 페이지에서는 Component에 존재하는 Element 들을 엮는 작업들만 하며, 그 외에 로직적인 부분은 하나도 다루지 않는다. Component 간의 데이터 전달 또한 하지 않는다. 예를들어 Navigation Bar와 Content Viewer가 데이터를 주고받아야 하는 일이 있다면, 그건 Navigation Bar와 Content Viewer를 합친 Component를 하나 더 만들어서 처리를 해야 하며, Page 에서 그 데이터를 연결해주는 작업이 있으면 안된다. Page는 Module 과 Asset의 참조 없이 Component 의 참조만을 가지고 진행이 되어야 한다. (간혹 url을 직접 다루는 일이 예외는 있다.)
+
+## CI/CD
+
+```AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY``` 를 Github Repository Secrets에 추가한다.
+
+Github Actions를 이용해 빌드 후 S3에 자동 배포를 하기 위한 AWS Key 값 들이다.
+
+IAM 계정을 생성하게 될 경우에 자동 발급이 된다.
+
+```.github\workflows\main.yml``` 파일을 살펴보고 수정을 하면 key 값의 이름 바꿀 수 있다.
+
+key 값을 설정 한 후엔 s3 url을 변경해주자.
+
+## Browser Supports
+
+![Chrome](https://raw.githubusercontent.com/alrra/browser-logos/master/src/chrome/chrome_48x48.png) | ![Safari](https://raw.githubusercontent.com/alrra/browser-logos/master/src/safari/safari_48x48.png)| ![Firefox](https://raw.githubusercontent.com/alrra/browser-logos/master/src/firefox/firefox_48x48.png) | ![IE](https://raw.githubusercontent.com/alrra/browser-logos/master/src/edge/edge_48x48.png) | ![Opera](https://raw.githubusercontent.com/alrra/browser-logos/master/src/opera/opera_48x48.png)
+:---:|:---:|:---:|:---:|:---:|
+Latest ✔ | Latest ✔ | Latest ✔ | Latest ✔  | Latest ✔ |
+<!-- Not Tested ❌|| -->
+
+## Contributor
+
+[Front - GGULBAE][link_to_GGULBAE]
+
+[link_to_GGULBAE]: https://github.com/GGULBAE "Go GGULBAE GIT"
