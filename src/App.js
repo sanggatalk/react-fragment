@@ -1,100 +1,9 @@
-// import React, { useRef, useState } from "react"
-// import { ReactReader } from "react-reader"
-
-// const App = () => {
-//   const [page, setPage] = useState('')
-//   const renditionRef = useRef(null)
-//   const tocRef = useRef(null)
-//   const locationChanged = (epubcifi) => {
-//     if (renditionRef.current && tocRef.current) {
-//       const { displayed, href } = renditionRef.current.location.start
-//       const chapter = tocRef.current.find((item) => item.href === href)
-//       setPage(`Page ${displayed.page} of ${displayed.total} in chapter ${chapter ? chapter.label : 'n/a'}`)
-//     }
-//   }
-  
-//   return (
-//     <>
-//       <div style={{ height: "100vh" }}>
-//         <ReactReader
-//           locationChanged={locationChanged}
-//           url="https://gerhardsletten.github.io/react-reader/files/alice.epub"
-//           getRendition={(rendition) => renditionRef.current = rendition}
-//           tocChanged={toc => tocRef.current = toc}
-//         />
-//       </div>
-//       <div style={{ position: 'absolute', bottom: '1rem', right: '1rem', left: '1rem', textAlign: 'center', zIndex: 1}}>
-//         {page}
-//       </div>
-//     </>
-//   )
-// }
-
-// export default App
-
-// import React, { useEffect, useRef, useState } from "react"
-// import { ReactReader } from "react-reader"
-
-// const App = () => {
-//   const [page, setPage] = useState('')
-//   const [size, setSize] = useState(100)
-//   // And your own state logic to persist state
-//   const [location, setLocation] = useState(null)
-//   const locationChanged = (epubcifi) => {
-//     console.log(epubcifi);
-//     if (renditionRef.current && tocRef.current) {
-//       const { displayed, href } = renditionRef.current.location.start
-//       const chapter = tocRef.current.find((item) => item.href === href)
-//       setPage(`Page ${displayed.page} of ${displayed.total} in chapter ${chapter ? chapter.label : 'n/a'}`)
-//     }
-//     // epubcifi is a internal string used by epubjs to point to a location in an epub. It looks like this: epubcfi(/6/6[titlepage]!/4/2/12[pgepubid00003]/3:0)
-//     setLocation(epubcifi)
-//   }
-//   const renditionRef = useRef(null);
-//   const tocRef = useRef(null);
-//   const changeSize = (newSize) => {
-//     setSize(newSize)
-//   }
-//   useEffect(() => {
-//     if (renditionRef.current) {
-//       renditionRef.current.themes.fontSize(`${size}%`)
-//     }
-//   }, [size])
-
-//   return (
-//     <>
-//       <div style={{ height: "100vh" }}>
-//         <ReactReader
-//           location={location}
-//           locationChanged={locationChanged}
-//           getRendition={(rendition) => {
-//             renditionRef.current = rendition
-//             renditionRef.current.themes.fontSize(`${size}%`)
-//             console.log(rendition.book.spine);
-//           }}
-//           tocChanged={toc => tocRef.current = toc}
-//           url="https://s3.us-west-1.amazonaws.com/playground.titanbooks.io/epub/2014_%EC%9D%B8%ED%84%B0%EB%84%B7%EC%83%81%EC%83%9D%EB%B0%B1%EC%84%9C.epub"
-//         />
-//       </div>
-//       <div style={{ position: 'absolute', bottom: '1rem', right: '1rem', left: '1rem', textAlign: 'center', zIndex: 1}}>
-        // <button onClick={() => changeSize(size - 10)}>-</button>
-        // <span>CurrentSize: {page} Current size: {size}%</span>
-        // <button onClick={() => changeSize(size + 10)}>+</button>
-
-//       </div>
-//     </>
-//   )
-// }
-
-// export default App
-
-
 import React, { useRef, useState, useEffect } from "react"
 import { ReactReader } from "react-reader"
 import styled from "styled-components"
 
-// const url = 'https://s3.us-west-1.amazonaws.com/playground.titanbooks.io/epub/alice2.epub';
 const v2_url = "https://s3.us-west-1.amazonaws.com/playground.titanbooks.io/epub/2014_%EC%9D%B8%ED%84%B0%EB%84%B7%EC%83%81%EC%83%9D%EB%B0%B1%EC%84%9C.epub";
+
 const url = v2_url;
 
 const App = () => {
@@ -186,24 +95,25 @@ const App = () => {
 
       <ButtonWrapper>
         <Buttons>
-          <button onClick={() => setFontSize(fontSize - 10)}>-</button>
-          <span>Current size: {fontSize}%</span>
-          <button onClick={() => setFontSize(fontSize + 10)}>+</button>
-        </Buttons>
-        <Buttons>
-          <button onClick={() => setLineHeight(lineHeight - 10)}>-</button>
-          <span>Current line height: {lineHeight}%</span>
-          <button onClick={() => setLineHeight(lineHeight + 10)}>+</button>
+          <Button onClick={() => setFontSize(fontSize - 10)}>-</Button>
+          <Span>Current size: {fontSize}%</Span>
+          <Button onClick={() => setFontSize(fontSize + 10)}>+</Button>
         </Buttons>
         
         <Buttons>
-          <button onClick={() => setViewDirection('left')}> 좌측 정렬 </button>
-          <button onClick={() => setViewDirection('center')}> 가운데 정렬 </button>
-          <button onClick={() => setViewDirection('right')}> 우측 정렬 </button>
+          <Button onClick={() => setLineHeight(lineHeight - 10)}>-</Button>
+          <Span>Current line height: {lineHeight}%</Span>
+          <Button onClick={() => setLineHeight(lineHeight + 10)}>+</Button>
+        </Buttons>
+        
+        <Buttons>
+          <Button onClick={() => setViewDirection('left')}> 좌측 정렬 </Button>
+          <Button onClick={() => setViewDirection('center')}> 가운데 정렬 </Button>
+          <Button onClick={() => setViewDirection('right')}> 우측 정렬 </Button>
         </Buttons>
 
         <Buttons>
-          <span>{currentChapter} ({currentPage} - {currentTotal}) / {chapterLength}</span>
+          <Span>Pages: {currentChapter} ({currentPage} - {currentTotal}) / {chapterLength}</Span>
         </Buttons>
       </ButtonWrapper>
     </PageWrapper>
@@ -224,6 +134,9 @@ const ButtonWrapper = styled.div`
 const Buttons = styled.div`
   display: inline-block;
   height: ${ButtonWrapperHeight};
+  margin-right: 20px;
 `;
+const Button = styled.button``;
+const Span = styled.span``;
 
 export default App;
